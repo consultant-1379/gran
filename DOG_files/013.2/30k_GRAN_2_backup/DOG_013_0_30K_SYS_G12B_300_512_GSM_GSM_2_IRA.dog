@@ -1,0 +1,76 @@
+#SubNetwork_DOG_013_0_30K_SYS_G12B_300_512_GSM_GSM_2_IRA
+#7: \
+11 ManagedElement_MSC_R141 \
+16 ManagedElement_BSC_G12B_300_CELL_23_STN \
+2 ManagedElement_BSC_G12B_512_CELL_23_STN \
+30 ManagedElement_TimeServer \
+6 ManagedElement_Firewall \
+20 ManagedElement_MLPPP \
+20 ManagedElement_RNC \
+
+#ManagedElement_Firewall
+managedElementType: {Firewall}
+swVersion: Netscreen-1000
+#0:
+
+#ManagedElement_TimeServer
+managedElementType: {TimeServer}
+swVersion: 06B
+#0:
+
+#ManagedElement_MLPPP
+managedElementType: {MLPPPRouter}
+swVersion: AIPCM-SE-800
+#0:
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G12B_300_CELL_23_STN
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1
+#1: 1 G12BBSSFunction_BSC_G12B_300_CELL_23_STN
+
+#G12BBSSFunction_BSC_G12B_300_CELL_23_STN
+#2: 300 G12BInternalCell_900 23 G12BPSTU_SIU02
+
+#ManagedElement_BSC_G12B_512_CELL_23_STN
+primaryiotype: APG40
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12BBSSFunction_BSC_G12B_512_CELL_23_STN
+
+#G12BBSSFunction_BSC_G12B_512_CELL_23_STN
+#2: 512 G12BInternalCell_900 23 G12BPSTU_SIU02
+
+#G12BInternalCell_900
+csystype: gsm900
+#0:
+
+#G12BPSTU_SIU02
+release: T12B
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#ManagedElement_RNC
+managedElementType: RNC
+#1: 1 RNCFunctionForeign
+
+#RNCFunctionForeign
+#1: 200 UtranCellForeign
+
+#R09AInternalCell_900
+csystype: gsm900
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:

@@ -1,0 +1,25 @@
+#SubNetwork_DOG_75MSC_150BSC_300LAN
+#2: \
+75 ManagedElement_MSC_R14 \
+150 ManagedElement_BSC_G11B_5_CELL \
+
+#ManagedElement_MSC_R14
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G11B_5_CELL
+primaryiotype: APG40
+lanswitch: R1
+#1: 1 G11BBSSFunction_G11B_5_CELL
+
+#G11BBSSFunction_G11B_5_CELL
+#1: 5 G11BInternalCell_900 
+
+#G11BInternalCell_900
+csystype: gsm900
+#0:
+
+#R14MSCCellFunction
+#0:
+

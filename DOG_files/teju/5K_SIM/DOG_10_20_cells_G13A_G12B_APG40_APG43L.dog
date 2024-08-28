@@ -1,0 +1,68 @@
+#SubNetwork_DOG_10_20_cells_G13A_G12B_APG40_APG43L
+#5: \
+2 ManagedElement_MSC_R141 \
+1 ManagedElement_BSC_G13A_10_CELL \
+1 ManagedElement_BSC_G13A_20_CELL \
+1 ManagedElement_BSC_G12B_10_CELL \
+1 ManagedElement_BSC_G12B_20_CELL
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G13A_10_CELL
+primaryiotype: APG43L
+superchannel: ON
+lanswitch: R1
+#1: 1 G13ABSSFunction_BSC_G13A_10_CELL
+
+#G13ABSSFunction_BSC_G13A_10_CELL
+#1: 10 G12AInternalCell_900
+
+#ManagedElement_BSC_G13A_20_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G13ABSSFunction_BSC_G13A_20_CELL
+
+#G13ABSSFunction_BSC_G13A_20_CELL
+#1: 20 G13AInternalCell_900
+
+#G13AInternalCell_900
+csystype: gsm900
+#0:
+
+#ManagedElement_BSC_G12B_10_CELL
+primaryiotype: APG43L
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12BBSSFunction_BSC_G12B_10_CELL
+
+#G12BBSSFunction_BSC_G12B_10_CELL
+#1: 10 G12BInternalCell_900
+
+#ManagedElement_BSC_G12B_20_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12BBSSFunction_BSC_G12B_20_CELL
+
+#G12BBSSFunction_BSC_G12B_20_CELL
+#1: 20 G12BInternalCell_900
+
+#G12BInternalCell_900
+csystype: gsm900
+#0:
+
+#ManagedElement_RNC
+managedElementType: RNC
+#1: 1 RNCFunctionForeign
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+
+

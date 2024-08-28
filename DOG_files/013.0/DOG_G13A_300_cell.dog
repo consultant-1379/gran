@@ -1,0 +1,25 @@
+#SubNetwork_DOG_G13A_300_cell
+#2: \
+1 ManagedElement_MSC_R141 \
+2 ManagedElement_BSC_G13A_150_CELL \
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G13A_150_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1
+#1: 1 G13ABSSFunction_BSC_G13A_150_CELL
+
+#G13ABSSFunction_BSC_G13A_150_CELL
+#1: 150 G13AInternalCell_900
+
+#G13AInternalCell_900
+csystype: gsm900
+#0:
+
+#R14MSCCellFunction
+#0:

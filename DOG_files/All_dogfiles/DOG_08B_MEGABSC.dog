@@ -1,0 +1,621 @@
+// $Id: DOG_08B_MEGABSC.dog,v 1.1 2008/04/23 10:43:14 eaglens Exp $
+// Param file for generation av Network with DOG
+
+// COPYRIGHT Ericsson Radio Systems AB 2002. All rights reserved.
+
+// All tags has to start with classnames from the information model (startDOG -h 
+// lists all classnames). The format of the each entry in the file is :
+//	#<classname><ownsuffix>
+//	<attribute name>: <attribute value>   // This line is optional and can be repeated
+//	#<number of children tags>: <number of instances of this tag> <Reference to another tag> ...
+//
+// A short practical example, a BSC R9.1 with 10 Internal cells, band GSM800 :
+//	#R91BSSFunction_800
+//	gsystype: gsm800
+//	#1: 10 R91InternalCell_800
+// The tag R91InternalCell_800 has to be declared also.
+
+// MSC:s and BSC:s are associated in the order they are created, that is in the order
+// they are listed below according to the parameter no_bss_per_msc in your param.txt.
+
+// This example/template file contains all types of network elements that normally is of any use.
+// There is one entry for every network element type and all supported releases (R8, R9, R9.1, R10).
+// For each of the BSC:s there is entries for every allowed frequency band (GSM800, GSM900, GSM1800 
+// and GSM1900) and one entry for a mixed version.
+// What you normally has to change is how the network is built up, that is how many of this and that. 
+// To do this you change the first tag, SubNetwork_MixedExample below. It is also important to check
+// the number of Internal cells in each BSSFunction (BSC).
+
+// You can create other types of objects in the this file also but they will not be considered
+// in the automatic generation of the "consistent" network. They will not get any associations 
+// or any parametervalues corresponding to for example actual frequency used.
+
+// ManagedElements for R9.1 and R10 network elements could override the attribute swVersion with the
+// value R9.1ED or R10ED and by that generate R9.1ED, R10ED network elements in 
+// Netsim. R9.1ED work in Netsim R10A or later and R10/R10ED in Netsim R11A or later.
+// Example:
+// 	#ManagedElement_R91BSSFunction800_91ED
+// 	swVersion: R9.1ED
+// 	#1: 1 R91BSSFunction_800
+
+// For all ManagedElements you can also override the attribute primaryiotype, which specify
+// what I/O type the network element has. Default is IOG20 and other values are IOG11, 
+// APG40 (R9.0 or later NE).
+// Example:
+// 	#ManagedElement_R91BSSFunction800_APG40
+// 	primaryiotype: APG40
+// 	#1: 1 R91BSSFunction_800
+//
+// For each object you create in this file you can set one or more attribute values. They will 
+// override any default values that is set by DOG, however "created params" in DOG can never 
+// be overriden. In the Dog specification 'DnD' you can read which parameters are "created" and which
+// ones only get default values.
+//
+
+
+#SubNetwork_08B_MEGABSC
+#2: \
+ 1 ManagedElement_R13MSCApg40 \
+   2 ManagedElement_R08BBSSFunctionMixedApg40_fullMEGA
+// MSC R12.1
+
+#ManagedElement_R121MSCApg40
+swVersion: R12.1
+primaryiotype: APG40
+#1: 1 R12MSCCellFunction
+
+
+#ManagedElement_R121MSC
+swVersion: R12.1
+#1: 1 R12MSCCellFunction
+
+// MSC R12.2
+
+#ManagedElement_R122MSCApg40
+swVersion: R12.2
+primaryiotype: APG40
+#1: 1 R12MSCCellFunction
+
+
+#ManagedElement_R122MSC
+swVersion: R12.2
+#1: 1 R12MSCCellFunction
+
+
+// MSC R12
+
+#R12MSCCellFunction
+#0:
+
+
+// MSC R13
+
+#ManagedElement_R13MSCApg40
+primaryiotype: APG40
+#1: 1 R13MSCCellFunction
+
+
+#ManagedElement_R13MSC
+#1: 1 R13MSCCellFunction
+
+#R13MSCCellFunction
+#0:
+
+
+
+// BSC R07A
+
+#ManagedElement_R07ABSSFunctionMixed_70
+lanswitch: ON
+#1: 1 R07ABSSFunction_Mixed_70
+
+#ManagedElement_R07ABSSFunctionMixedApg40_70
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R07ABSSFunction_Mixed_70
+
+#ManagedElement_R07ABSSFunctionMixedApg40_70_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_70
+
+#ManagedElement_R07ABSSFunctionMixed_MEGA
+lanswitch: ON
+#1: 1 R07ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R07ABSSFunctionMixedApg40_MEGA
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R07ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R07ABSSFunctionMixedApg40_MEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R07ABSSFunctionMixedApg40_fullMEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_fullMEGA
+
+#R07ABSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R07AInternalCell_800 30 R07AInternalCell_900 20 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_100
+gsystype: mixed
+#3: 30 R07AInternalCell_800 40 R07AInternalCell_900 30 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R07AInternalCell_800 172 R07AInternalCell_900 170 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_fullMEGA
+gsystype: mixed
+#3: 340 R07AInternalCell_800 344 R07AInternalCell_900 340 R07AInternalCell_1800
+
+
+// PSTU 07A
+
+#R07APSTU_07APICO_S1
+release: 07A
+iotype: PICO
+subnet: S1
+#0:
+#R07APSTU_07APICO_S2
+release: 07A
+iotype: PICO
+subnet: S2
+#0:
+#R07APSTU_07APICO_S3
+release: 07A
+iotype: PICO
+subnet: S3
+#0:
+#R07APSTU_07APICO_S4
+release: 07A
+iotype: PICO
+subnet: S4
+#0:
+
+#R07APSTU_07ASIU_S1
+release: 07A
+iotype: SIU
+subnet: S1
+#0:
+#R07APSTU_07ASIU_S2
+release: 07A
+iotype: SIU
+subnet: S2
+#0:
+#R07APSTU_07ASIU_S3
+release: 07A
+iotype: SIU
+subnet: S3
+#0:
+#R07APSTU_07ASIU_S4
+release: 07A
+iotype: SIU
+subnet: S4
+#0:
+
+#R07APSTU_06BPSTU_S1
+release: 06B
+iotype: PSTU
+subnet: S1
+#0:
+
+// Internal cells R07A
+
+#R07AInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R07AInternalCell_900
+csystype: gsm900
+#0:
+
+#R07AInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R07AInternalCell_800
+csystype: gsm800
+#0:
+
+
+
+// BSC R07B
+
+#ManagedElement_R07BBSSFunctionMixed_70
+lanswitch: ON
+#1: 1 R07BBSSFunction_Mixed_70
+
+#ManagedElement_R07BBSSFunctionMixedApg40_70
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R07BBSSFunction_Mixed_70
+
+#ManagedElement_R07BBSSFunctionMixedApg40_70_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_70
+
+#ManagedElement_R07BBSSFunctionMixedApg40_70_SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_70_SIU
+
+#ManagedElement_R07BBSSFunctionMixed_MEGA
+lanswitch: ON
+#1: 1 R07BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R07BBSSFunctionMixedApg40_MEGA
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R07BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R07BBSSFunctionMixedApg40_MEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R07BBSSFunctionMixedApg40_MEGA_128SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+siumaxtgs: 4
+#1: 1 R07BBSSFunction_Mixed_MEGA_128SIU
+
+#ManagedElement_R07BBSSFunctionMixedApg40_500_500PICO
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_500_500PICO
+
+#ManagedElement_R07BBSSFunctionMixedApg40_500_500STN_mix
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_500_500STN_mix
+
+#ManagedElement_R07BBSSFunctionMixedApg40_MEGA_256SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_MEGA_256SIU
+
+#ManagedElement_R07BBSSFunctionMixedApg40_fullMEGA
+primaryiotype: APG40
+#1: 1 R07BBSSFunction_Mixed_fullMEGA
+
+#ManagedElement_R07BBSSFunctionMixedApg40_fullMEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07BBSSFunction_Mixed_fullMEGA
+
+#ManagedElement_R07BBSSFunctionMixedApg40_fullMEGA_170SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+siumaxtgs: 4
+#1: 1 R07BBSSFunction_Mixed_fullMEGA_170SIU
+
+#R07BBSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R07BInternalCell_800 30 R07BInternalCell_900 20 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_70_SIU
+gsystype: mixed
+#6: 3 R07BPSTU_07ASIU_S1 2 R07BPSTU_07ASIU_S2 65 R07BPSTU_07ASIU_S3 \
+    20 R07BInternalCell_800 30 R07BInternalCell_900 20 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_100
+gsystype: mixed
+#3: 30 R07BInternalCell_800 40 R07BInternalCell_900 30 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R07BInternalCell_800 172 R07BInternalCell_900 170 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_MEGA_128SIU
+gsystype: mixed
+#5: 125 R07BPSTU_07ASIU_S1 3 R07BPSTU_07ASIU_S2 \
+    170 R07BInternalCell_800 172 R07BInternalCell_900 170 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_500_500PICO
+gsystype: mixed
+#7: 125 R07BPSTU_07APICO_S1 125 R07BPSTU_07APICO_S2 125 R07BPSTU_07APICO_S3 125 R07BPSTU_07APICO_S4 \
+    166 R07BInternalCell_800 168 R07BInternalCell_900 166 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_500_500STN_mix
+gsystype: mixed
+#7: 125 R07BPSTU_06BPSTU_S1 125 R07BPSTU_07APICO_S2 125 R07BPSTU_07APICO_S3 125 R07BPSTU_07ASIU_S4 \
+    166 R07BInternalCell_800 168 R07BInternalCell_900 166 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_MEGA_256SIU
+gsystype: mixed
+#6: 125 R07BPSTU_07ASIU_S1 125 R07BPSTU_07ASIU_S2 6 R07BPSTU_07ASIU_S3 \
+    170 R07BInternalCell_800 172 R07BInternalCell_900 170 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_fullMEGA
+gsystype: mixed
+#3: 340 R07BInternalCell_800 344 R07BInternalCell_900 340 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_fullMEGA_170SIU
+gsystype: mixed
+#5: 120 R07BPSTU_07ASIU_S1 50 R07BPSTU_07ASIU_S2 \
+    340 R07BInternalCell_800 344 R07BInternalCell_900 340 R07BInternalCell_1800
+
+// PSTU 07B
+
+#R07BPSTU_07APICO_S1
+release: 07A
+iotype: PICO
+subnet: S1
+#0:
+#R07BPSTU_07APICO_S2
+release: 07A
+iotype: PICO
+subnet: S2
+#0:
+#R07BPSTU_07APICO_S3
+release: 07A
+iotype: PICO
+subnet: S3
+#0:
+#R07BPSTU_07APICO_S4
+release: 07A
+iotype: PICO
+subnet: S4
+#0:
+
+#R07BPSTU_07ASIU_S1
+release: 07A
+iotype: SIU
+subnet: S1
+#0:
+#R07BPSTU_07ASIU_S2
+release: 07A
+iotype: SIU
+subnet: S2
+#0:
+#R07BPSTU_07ASIU_S3
+release: 07A
+iotype: SIU
+subnet: S3
+#0:
+#R07BPSTU_07ASIU_S4
+release: 07A
+iotype: SIU
+subnet: S4
+#0:
+
+#R07BPSTU_06BPSTU_S1
+release: 06B
+iotype: PSTU
+subnet: S1
+#0:
+
+
+// Internal cells R07B
+
+#R07BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R07BInternalCell_900
+csystype: gsm900
+#0:
+
+#R07BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R07BInternalCell_800
+csystype: gsm800
+#0:
+
+
+
+// BSC R08B
+
+#ManagedElement_R08BBSSFunctionMixed_70
+lanswitch: ON
+#1: 1 R08BBSSFunction_Mixed_70
+
+#ManagedElement_R08BBSSFunctionMixedApg40_70
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R08BBSSFunction_Mixed_70
+
+#ManagedElement_R08BBSSFunctionMixedApg40_70_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_70
+
+#ManagedElement_R08BBSSFunctionMixedApg40_70_SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_70_SIU
+
+#ManagedElement_R08BBSSFunctionMixed_MEGA
+lanswitch: ON
+#1: 1 R08BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R08BBSSFunctionMixedApg40_MEGA
+lanswitch: ON
+primaryiotype: APG40
+#1: 1 R08BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R08BBSSFunctionMixedApg40_MEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R08BBSSFunctionMixedApg40_MEGA_128SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+siumaxtgs: 4
+#1: 1 R08BBSSFunction_Mixed_MEGA_128SIU
+
+#ManagedElement_R08BBSSFunctionMixedApg40_500_500PICO
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_500_500PICO
+
+#ManagedElement_R08BBSSFunctionMixedApg40_500_500STN_mix
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_500_500STN_mix
+
+#ManagedElement_R08BBSSFunctionMixedApg40_MEGA_256SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_MEGA_256SIU
+
+#ManagedElement_R08BBSSFunctionMixedApg40_fullMEGA
+primaryiotype: APG40
+#1: 1 R08BBSSFunction_Mixed_fullMEGA
+
+#ManagedElement_R08BBSSFunctionMixedApg40_fullMEGA_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R08BBSSFunction_Mixed_fullMEGA
+
+#ManagedElement_R08BBSSFunctionMixedApg40_fullMEGA_170SIU
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+siumaxtgs: 4
+#1: 1 R08BBSSFunction_Mixed_fullMEGA_170SIU
+
+#R08BBSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R08BInternalCell_800 30 R08BInternalCell_900 20 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_70_SIU
+gsystype: mixed
+#6: 3 R08BPSTU_07ASIU_S1 2 R08BPSTU_07ASIU_S2 65 R08BPSTU_07ASIU_S3 \
+    20 R08BInternalCell_800 30 R08BInternalCell_900 20 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_100
+gsystype: mixed
+#3: 30 R08BInternalCell_800 40 R08BInternalCell_900 30 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R08BInternalCell_800 172 R08BInternalCell_900 170 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_MEGA_128SIU
+gsystype: mixed
+#5: 125 R08BPSTU_07ASIU_S1 3 R08BPSTU_07ASIU_S2 \
+    170 R08BInternalCell_800 172 R08BInternalCell_900 170 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_500_500PICO
+gsystype: mixed
+#7: 125 R08BPSTU_07APICO_S1 125 R08BPSTU_07APICO_S2 125 R08BPSTU_07APICO_S3 125 R08BPSTU_07APICO_S4 \
+    166 R08BInternalCell_800 168 R08BInternalCell_900 166 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_500_500STN_mix
+gsystype: mixed
+#7: 125 R08BPSTU_06BPSTU_S1 125 R08BPSTU_07APICO_S2 125 R08BPSTU_07APICO_S3 125 R08BPSTU_07ASIU_S4 \
+    166 R08BInternalCell_800 168 R08BInternalCell_900 166 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_MEGA_256SIU
+gsystype: mixed
+#6: 125 R08BPSTU_07ASIU_S1 125 R08BPSTU_07ASIU_S2 6 R08BPSTU_07ASIU_S3 \
+    170 R08BInternalCell_800 172 R08BInternalCell_900 170 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_fullMEGA
+gsystype: mixed
+#3: 340 R08BInternalCell_800 344 R08BInternalCell_900 340 R08BInternalCell_1800
+
+#R08BBSSFunction_Mixed_fullMEGA_170SIU
+gsystype: mixed
+#5: 120 R08BPSTU_07ASIU_S1 50 R08BPSTU_07ASIU_S2 \
+    340 R08BInternalCell_800 344 R08BInternalCell_900 340 R08BInternalCell_1800
+
+// PSTU 08B
+
+#R08BPSTU_07APICO_S1
+release: 07A
+iotype: PICO
+subnet: S1
+#0:
+#R08BPSTU_07APICO_S2
+release: 07A
+iotype: PICO
+subnet: S2
+#0:
+#R08BPSTU_07APICO_S3
+release: 07A
+iotype: PICO
+subnet: S3
+#0:
+#R08BPSTU_07APICO_S4
+release: 07A
+iotype: PICO
+subnet: S4
+#0:
+
+#R08BPSTU_07ASIU_S1
+release: 07A
+iotype: SIU
+subnet: S1
+#0:
+#R08BPSTU_07ASIU_S2
+release: 07A
+iotype: SIU
+subnet: S2
+#0:
+#R08BPSTU_07ASIU_S3
+release: 07A
+iotype: SIU
+subnet: S3
+#0:
+#R08BPSTU_07ASIU_S4
+release: 07A
+iotype: SIU
+subnet: S4
+#0:
+
+#R08BPSTU_06BPSTU_S1
+release: 06B
+iotype: PSTU
+subnet: S1
+#0:
+
+
+// Internal cells R08B
+
+#R08BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R08BInternalCell_900
+csystype: gsm900
+#0:
+
+#R08BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R08BInternalCell_800
+csystype: gsm800
+#0:

@@ -1,0 +1,24 @@
+#SubNetwork_DOG_48BSC_625_cell
+#2: \
+24 ManagedElement_MSC_R14 \
+48 ManagedElement_BSC_G10A_625_CELL \
+
+#ManagedElement_MSC_R14
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G10A_625_CELL
+primaryiotype: APG40
+#1: 1 G10ABSSFunction_G10A_625_CELL
+
+#G10ABSSFunction_G10A_625_CELL
+#1: 625 G10AInternalCell_900 
+
+#G10AInternalCell_900
+csystype: gsm900
+#0:
+
+#R14MSCCellFunction
+#0:
+

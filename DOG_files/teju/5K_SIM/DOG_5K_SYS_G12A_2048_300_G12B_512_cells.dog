@@ -1,0 +1,69 @@
+#SubNetwork_DOG_5K_SYS_G12A_2048_300_G12B_512_cells
+#4: \
+4 ManagedElement_MSC_R141 \
+1 ManagedElement_BSC_G12A_2048_CELL \
+4 ManagedElement_BSC_G12B_512_CELL \
+3 ManagedElement_BSC_G12A_300_CELL \
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G12A_2048_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1
+#1: 1 G12ABSSFunction_BSC_G12A_2048_CELL
+
+#G12ABSSFunction_BSC_G12A_2048_CELL
+#2: 2048 G12AInternalCell_900
+
+#ManagedElement_BSC_G12B_512_CELL
+primaryiotype: APG43L
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12BBSSFunction_BSC_G12B_512_CELL
+
+#G12BBSSFunction_BSC_G12B_512_CELL
+#2: 512 G12BInternalCell_900
+
+#G12AInternalCell_900
+csystype: gsm900
+#0:
+
+#G12BInternalCell_900
+csystype: gsm900
+#0:
+
+#ManagedElement_BSC_G12A_300_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12ABSSFunction_BSC_G12A_300_CELL
+
+#G12ABSSFunction_BSC_G12A_300_CELL
+#2: 300 G12AInternalCell_900
+
+#G11BPSTU_SIU02
+release: T11A
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#G11BPSTU_SIU02
+release: T11B
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+

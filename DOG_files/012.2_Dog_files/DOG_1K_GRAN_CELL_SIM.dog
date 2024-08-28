@@ -1,0 +1,61 @@
+#SubNetwork_DOG_1K_GRAN_CELL_SIM
+#6: \
+2 ManagedElement_MSC_R141 \
+2 ManagedElement_BSC_G12A_256_CELL \
+2 ManagedElement_BSC_G12B_256_CELL \
+3 ManagedElement_TimeServer \
+1 ManagedElement_Firewall \
+3 ManagedElement_MLPPP \
+
+#ManagedElement_Firewall
+managedElementType: {Firewall}
+swVersion: Netscreen-1000
+#0:
+
+#ManagedElement_TimeServer
+managedElementType: {TimeServer}
+swVersion: 06B
+#0:
+
+#ManagedElement_MLPPP
+managedElementType: {MLPPPRouter}
+swVersion: AIPCM-SE-800
+#0:
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G12A_256_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1
+#1: 1 G12ABSSFunction_G12A_256_CELL
+
+#G12ABSSFunction_G12A_256_CELL
+#1: 256 G12AInternalCell_900 
+
+#ManagedElement_BSC_G12B_256_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G12BBSSFunction_BSC_G12B_256_CELL
+
+#G12BBSSFunction_BSC_G12B_256_CELL
+#1: 256 G12BInternalCell_900
+
+#G12BInternalCell_900
+csystype: gsm900
+#0:
+
+#G12AInternalCell_900
+csystype: gsm900
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+

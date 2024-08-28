@@ -1,0 +1,134 @@
+#SubNetwork_DOG_013_0_30K_SYS_G12B_150_cell_MSCBC
+#10: \
+10 ManagedElement_MSC_R14_1 \
+7 ManagedElement_BSC_G12B_150_CELL_14_STN \
+14 ManagedElement_BSC_G12B_150_CELL_19_STN \
+15 ManagedElement_TimeServer \
+3 ManagedElement_Firewall \
+10 ManagedElement_MLPPPRouter \
+20 ManagedElement_RNC \
+1 ManagedElement_MSCBC_17MSC_R14.1 \
+2 ManagedElement_MSCBC_2MSC_R14.1 \
+2 ManagedElement_MSCBC_8MSC_R14.1 \
+
+#ManagedElement_TimeServer
+managedElementType: {TimeServer}
+swVersion: 06B
+#0:
+
+#ManagedElement_Firewall
+managedElementType: {Firewall}
+swVersion: Netscreen-1000
+#0:
+
+#ManagedElement_MLPPPRouter
+managedElementType: {MLPPPRouter}
+swVersion: AIPCM-SE-800
+#0:
+
+#ManagedElement_MSC_R14_1
+swVersion: R14.1
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G12B_150_CELL_14_STN
+primaryiotype: APG43L
+superchannel: ON
+firewall: ON
+abisoverip: ON
+#1: 1 G12BBSSFunction_BSC_G12B_150_CELL_14_STN
+
+#G12BBSSFunction_BSC_G12B_150_CELL_14_STN
+#2: 150 G12BInternalCell_900 14 G12APSTU_SIU02
+
+#ManagedElement_BSC_G12B_150_CELL_19_STN
+primaryiotype: APG43L
+lanswitch: R1
+#1: 1 G12BBSSFunction_BSC_G12B_150_CELL_19_STN
+
+#G12BBSSFunction_BSC_G12B_150_CELL_19_STN
+#2: 150 G12BInternalCell_900 19 G12APSTU_SIU02
+
+#G12APSTU_SIU02
+release: T12A
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#ManagedElement_RNC
+managedElementType: RNC
+#1: 1 RNCFunctionForeign
+
+#RNCFunctionForeign
+#1: 100 UtranCellForeign
+
+#G12BInternalCell_900
+csystype: gsm900
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+
+/ Blade Cluster //////
+
+//17 MSC + 2TSC Blades
+#ManagedElement_MSCBC_17MSC_R14.1
+#6: 1 R14MSCSBC \
+    1 ManagedElement_IS \
+    1 ManagedElement_R14.1MSCSBCAP \
+    2 ManagedElement_R14.1MSCSBCSPX \
+    16 ManagedElement_R14.1MSCSBCCP \
+    2 ManagedElement_R14.1MSCSBCTSC
+
+//2 MSC + 2TSC Blades
+#ManagedElement_MSCBC_2MSC_R14.1
+#6: 1 R14MSCSBC \
+    1 ManagedElement_IS \
+    1 ManagedElement_R14.1MSCSBCAP \
+    2 ManagedElement_R14.1MSCSBCSPX \
+    2 ManagedElement_R14.1MSCSBCCP \
+    2 ManagedElement_R14.1MSCSBCTSC
+
+//8 MSC + 2TSC Blades
+#ManagedElement_MSCBC_8MSC_R14.1
+#6: 1 R14MSCSBC \
+    1 ManagedElement_IS \
+    1 ManagedElement_R14.1MSCSBCAP \
+    2 ManagedElement_R14.1MSCSBCSPX \
+    8 ManagedElement_R14.1MSCSBCCP \
+    2 ManagedElement_R14.1MSCSBCTSC
+
+#ManagedElement_IS
+managedElementType: {MSC-S-IS}
+primaryiotype: IS
+swVersion: 2-0
+#0:
+
+#ManagedElement_R14.1MSCSBCAP
+primaryiotype: AP
+swVersion: R141
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_R14.1MSCSBCSPX
+primaryiotype: SPX
+swVersion: R141
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_R14.1MSCSBCCP
+primaryiotype: CP
+swVersion: R141
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_R14.1MSCSBCTSC
+primaryiotype: TSC
+swVersion: R141
+#1: 1 R14MSCCellFunction
+
+#R14MSCSBC
+#0:
+

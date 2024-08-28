@@ -1,0 +1,79 @@
+#SubNetwork_DOG_5K_SYS_G13A_2048_300_512_cells
+#8: \
+4 ManagedElement_MSC_R141 \
+1 ManagedElement_BSC_G13A_2048_CELL \
+4 ManagedElement_BSC_G13A_512_CELL \
+3 ManagedElement_BSC_G13A_300_CELL \
+3 ManagedElement_TimeServer \
+3 ManagedElement_Firewall \
+3 ManagedElement_MLPPP \
+50 ManagedElement_RNC \
+
+#ManagedElement_Firewall
+managedElementType: {Firewall}
+swVersion: Netscreen-1000
+#0:
+
+#ManagedElement_TimeServer
+managedElementType: {TimeServer}
+swVersion: 06B
+#0:
+
+#ManagedElement_MLPPP
+managedElementType: {MLPPPRouter}
+swVersion: AIPCM-SE-800
+#0:
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G13A_2048_CELL
+primaryiotype: APG43L
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G13ABSSFunction_BSC_G13A_2048_CELL
+
+#G13ABSSFunction_BSC_G13A_2048_CELL
+#1: 2048 G13AInternalCell_900
+
+#ManagedElement_BSC_G13A_512_CELL
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1 
+#1: 1 G13ABSSFunction_BSC_G13A_512_CELL
+
+#G13ABSSFunction_BSC_G13A_512_CELL
+#1: 512 G13AInternalCell_900
+
+#ManagedElement_BSC_G13A_300_CELL
+primaryiotype: APG43L
+superchannel: ON
+lanswitch: BSC-NWI-E-450A
+#1: 1 G13ABSSFunction_BSC_G13A_300_CELL
+
+#G13ABSSFunction_BSC_G13A_300_CELL
+#1: 300 G13AInternalCell_900
+
+#G13AInternalCell_900
+csystype: gsm900
+#0:
+
+#ManagedElement_RNC
+managedElementType: RNC
+#1: 1 RNCFunctionForeign
+
+#RNCFunctionForeign
+#1: 500 UtranCellForeign
+
+#R09AInternalCell_900
+csystype: gsm900
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+

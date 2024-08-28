@@ -1,0 +1,302 @@
+// $Id: DOG_07A_SPD.dog,v 1.1 2006/12/04 11:31:21 qskogvi Exp $
+// Param file for generation av Network with DOG
+
+// COPYRIGHT Ericsson Radio Systems AB 2002. All rights reserved.
+
+// All tags has to start with classnames from the information model (startDOG -h 
+// lists all classnames). The format of the each entry in the file is :
+//	#<classname><ownsuffix>
+//	<attribute name>: <attribute value>   // This line is optional and can be repeated
+//	#<number of children tags>: <number of instances of this tag> <Reference to another tag> ...
+//
+// A short practical example, a BSC R9.1 with 10 Internal cells, band GSM800 :
+//	#R91BSSFunction_800
+//	gsystype: gsm800
+//	#1: 10 R91InternalCell_800
+// The tag R91InternalCell_800 has to be declared also.
+
+// MSC:s and BSC:s are associated in the order they are created, that is in the order
+// they are listed below according to the parameter no_bss_per_msc in your param.txt.
+
+// This example/template file contains all types of network elements that normally is of any use.
+// There is one entry for every network element type and all supported releases (R8, R9, R9.1, R10).
+// For each of the BSC:s there is entries for every allowed frequency band (GSM800, GSM900, GSM1800 
+// and GSM1900) and one entry for a mixed version.
+// What you normally has to change is how the network is built up, that is how many of this and that. 
+// To do this you change the first tag, SubNetwork_MixedExample below. It is also important to check
+// the number of Internal cells in each BSSFunction (BSC).
+
+// You can create other types of objects in the this file also but they will not be considered
+// in the automatic generation of the "consistent" network. They will not get any associations 
+// or any parametervalues corresponding to for example actual frequency used.
+
+// ManagedElements for R9.1 and R10 network elements could override the attribute swVersion with the
+// value R9.1ED or R10ED and by that generate R9.1ED, R10ED network elements in 
+// Netsim. R9.1ED work in Netsim R10A or later and R10/R10ED in Netsim R11A or later.
+// Example:
+// 	#ManagedElement_R91BSSFunction800_91ED
+// 	swVersion: R9.1ED
+// 	#1: 1 R91BSSFunction_800
+
+// For all ManagedElements you can also override the attribute primaryiotype, which specify
+// what I/O type the network element has. Default is IOG20 and other values are IOG11, 
+// APG40 (R9.0 or later NE).
+// Example:
+// 	#ManagedElement_R91BSSFunction800_APG40
+// 	primaryiotype: APG40
+// 	#1: 1 R91BSSFunction_800
+//
+// For each object you create in this file you can set one or more attribute values. They will 
+// override any default values that is set by DOG, however "created params" in DOG can never 
+// be overriden. In the Dog specification 'DnD' you can read which parameters are "created" and which
+// ones only get default values.
+//
+
+#SubNetwork_07A_SPD
+#22: \
+// 5 MSC R12, 1 MegaBsc (full =1024), 9 MegaBsc (512), 2 IOG 8 APG
+ 5 ManagedElement_R12MSCApg40 \
+   1 ManagedElement_R07ABSSFunctionMixedApg40_MEGA_full \
+   4 ManagedElement_R07ABSSFunctionMixedApg40_MEGA \
+   1 ManagedElement_R07ABSSFunctionMixed_MEGA \
+   3 ManagedElement_R06BBSSFunctionMixedApg40_MEGA \
+   1 ManagedElement_R06BBSSFunctionMixed_MEGA \
+//
+// Remaining 134 BSCs 70 cells, with 80-20 APG-IOG and 67 MSCs, 
+// This gives as follows:
+// BSC  APG     IOG     Total     MSC    APG     IOG       Total
+//      ==============                   ===============
+// 07A  58      14         72
+// 06B  34       9         43      
+// 06A  16       5         21   
+// R12   6       2          8     R12    63      14        77
+//      -----------------------------------------------------
+// Sum 114      30        144            63      14        77
+//
+// MSCs
+ 53 ManagedElement_R12MSCApg40 \
+ 14 ManagedElement_R12MSC \
+// BSCs
+ 53 ManagedElement_R07ABSSFunctionMixedApg40_70 \
+ 31 ManagedElement_R06BBSSFunctionMixedApg40_70 \
+ 16 ManagedElement_R06ABSSFunctionMixedApg40_70 \
+  6 ManagedElement_R12BSSFunctionMixedApg40_70 \
+ 13 ManagedElement_R07ABSSFunctionMixed_70 \
+  8 ManagedElement_R06BBSSFunctionMixed_70 \
+  5 ManagedElement_R06ABSSFunctionMixed_70 \
+  2 ManagedElement_R12BSSFunctionMixed_70
+
+// MSC R12
+
+#ManagedElement_R12MSCApg40
+primaryiotype: APG40
+#1: 1 R12MSCCellFunction
+
+#ManagedElement_R12MSC
+#1: 1 R12MSCCellFunction
+
+#R12MSCCellFunction
+#0:
+
+#ManagedElement_R12MSC_P1
+mscpool_id: {pool21}
+#1: 1 R12MSCCellFunction
+
+#ManagedElement_R12MSCApg40_P1
+primaryiotype: APG40
+mscpool_id: {pool21}
+#1: 1 R12MSCCellFunction
+
+#ManagedElement_R12MSC_P2
+mscpool_id: {pool22}
+#1: 1 R12MSCCellFunction
+
+#ManagedElement_R12MSCApg40_P2
+primaryiotype: APG40
+mscpool_id: {pool22}
+#1: 1 R12MSCCellFunction
+
+
+// BSC R12
+
+#ManagedElement_R12BSSFunctionMixed_70
+#1: 1 R12BSSFunction_Mixed_70
+
+#ManagedElement_R12BSSFunctionMixedApg40_70
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R12BSSFunction_Mixed_70
+
+#R12BSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R12InternalCell_800 30 R12InternalCell_900 20 R12InternalCell_1800
+
+
+// Internal cells R12
+
+#R12InternalCell_1900
+csystype: gsm1900
+#0:
+
+#R12InternalCell_900
+csystype: gsm900
+#0:
+
+#R12InternalCell_1800
+csystype: gsm1800
+#0:
+
+#R12InternalCell_800
+csystype: gsm800
+#0:
+
+// BSC R06A
+
+#ManagedElement_R06ABSSFunctionMixed_70
+#1: 1 R06ABSSFunction_Mixed_70
+
+#ManagedElement_R06ABSSFunctionMixedApg40_70
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R06ABSSFunction_Mixed_70
+
+#ManagedElement_R06ABSSFunctionMixed_MEGA
+#1: 1 R06ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R06ABSSFunctionMixedApg40_MEGA
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R06ABSSFunction_Mixed_MEGA
+
+#R06ABSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R06AInternalCell_800 30 R06AInternalCell_900 20 R06AInternalCell_1800
+
+#R06ABSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R06AInternalCell_800 172 R06AInternalCell_900 170 R06AInternalCell_1800
+
+
+
+// Internal cells R06A
+
+#R06AInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R06AInternalCell_900
+csystype: gsm900
+#0:
+
+#R06AInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R06AInternalCell_800
+csystype: gsm800
+#0:
+
+
+// BSC R06B
+
+#ManagedElement_R06BBSSFunctionMixed_70
+#1: 1 R06BBSSFunction_Mixed_70
+
+#ManagedElement_R06BBSSFunctionMixedApg40_70
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R06BBSSFunction_Mixed_70
+
+#ManagedElement_R06BBSSFunctionMixed_MEGA
+#1: 1 R06BBSSFunction_Mixed_MEGA
+
+#ManagedElement_R06BBSSFunctionMixedApg40_MEGA
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R06BBSSFunction_Mixed_MEGA
+
+#R06BBSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R06BInternalCell_800 30 R06BInternalCell_900 20 R06BInternalCell_1800
+
+#R06BBSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R06BInternalCell_800 172 R06BInternalCell_900 170 R06BInternalCell_1800
+
+
+// Internal cells R06B
+
+#R06BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R06BInternalCell_900
+csystype: gsm900
+#0:
+
+#R06BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R06BInternalCell_800
+csystype: gsm800
+#0:
+
+
+// BSC R07A
+
+#ManagedElement_R07ABSSFunctionMixed_70
+#1: 1 R07ABSSFunction_Mixed_70
+
+#ManagedElement_R07ABSSFunctionMixedApg40_70
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_70
+
+#ManagedElement_R07ABSSFunctionMixed_MEGA
+#1: 1 R07ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R07ABSSFunctionMixedApg40_MEGA
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_MEGA
+
+#ManagedElement_R07ABSSFunctionMixedApg40_MEGA_full
+primaryiotype: APG40
+abisoverip: ON
+#1: 1 R07ABSSFunction_Mixed_MEGA_full
+
+#R07ABSSFunction_Mixed_70
+gsystype: mixed
+#3: 20 R07AInternalCell_800 30 R07AInternalCell_900 20 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_100
+gsystype: mixed
+#3: 30 R07AInternalCell_800 40 R07AInternalCell_900 30 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_MEGA
+gsystype: mixed
+#3: 170 R07AInternalCell_800 172 R07AInternalCell_900 170 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_MEGA_full
+gsystype: mixed
+#3: 340 R07AInternalCell_800 344 R07AInternalCell_900 340 R07AInternalCell_1800
+
+
+// Internal cells R07A
+
+#R07AInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R07AInternalCell_900
+csystype: gsm900
+#0:
+
+#R07AInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R07AInternalCell_800
+csystype: gsm800
+#0:

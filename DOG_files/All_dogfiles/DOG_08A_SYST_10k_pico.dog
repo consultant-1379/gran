@@ -1,0 +1,503 @@
+// $Id: DOG_08A_SYST_10k_pico.dog,v 1.3 2008/06/25 09:40:38 eaglens Exp $
+// Param file for generation av Network with DOG
+
+// COPYRIGHT Ericsson Radio Systems AB 2002. All rights reserved.
+
+// All tags has to start with classnames from the information model (startDOG -h 
+// lists all classnames). The format of the each entry in the file is :
+//	#<classname><ownsuffix>
+//	<attribute name>: <attribute value>   // This line is optional and can be repeated
+//	#<number of children tags>: <number of instances of this tag> <Reference to another tag> ...
+//
+// A short practical example, a BSC R9.1 with 10 Internal cells, band GSM800 :
+//	#R91BSSFunction_800
+//	gsystype: gsm800
+//	#1: 10 R91InternalCell_800
+// The tag R91InternalCell_800 has to be declared also.
+
+// MSC:s and BSC:s are associated in the order they are created, that is in the order
+// they are listed below according to the parameter no_bss_per_msc in your param.txt.
+
+// This example/template file contains all types of network elements that normally is of any use.
+// There is one entry for every network element type and all supported releases (R8, R9, R9.1, R10).
+// For each of the BSC:s there is entries for every allowed frequency band (GSM800, GSM900, GSM1800 
+// and GSM1900) and one entry for a mixed version.
+// What you normally has to change is how the network is built up, that is how many of this and that. 
+// To do this you change the first tag, SubNetwork_MixedExample below. It is also important to check
+// the number of Internal cells in each BSSFunction (BSC).
+
+// You can create other types of objects in the this file also but they will not be considered
+// in the automatic generation of the "consistent" network. They will not get any associations 
+// or any parametervalues corresponding to for example actual frequency used.
+
+// ManagedElements for R9.1 and R10 network elements could override the attribute swVersion with the
+// value R9.1ED or R10ED and by that generate R9.1ED, R10ED network elements in 
+// Netsim. R9.1ED work in Netsim R10A or later and R10/R10ED in Netsim R11A or later.
+// Example:
+// 	#ManagedElement_R91BSSFunction800_91ED
+// 	swVersion: R9.1ED
+// 	#1: 1 R91BSSFunction_800
+
+// For all ManagedElements you can also override the attribute primaryiotype, which specify
+// what I/O type the network element has. Default is IOG20 and other values are IOG11, 
+// APG40 (R9.0 or later NE).
+// Example:
+// 	#ManagedElement_R91BSSFunction800_APG40
+// 	primaryiotype: APG40
+// 	#1: 1 R91BSSFunction_800
+//
+// For each object you create in this file you can set one or more attribute values. They will 
+// override any default values that is set by DOG, however "created params" in DOG can never 
+// be overriden. In the Dog specification 'DnD' you can read which parameters are "created" and which
+// ones only get default values.
+//
+
+
+#SubNetwork_08A_SYST_10k_pico
+#13: \
+ 156 ManagedElement_TimeServer \
+ 34 ManagedElement_Firewall \
+//
+ 5 ManagedElement_R121MSCApg40 \
+ 5 ManagedElement_R122MSCApg40 \
+ 6 ManagedElement_R13MSCApg40 \
+//
+  2 ManagedElement_R06BBSSFunctionMixedApg40_200_STN \
+  3 ManagedElement_R06BBSSFunctionMixedApg40_100_STN \
+  3 ManagedElement_R07ABSSFunctionMixedApg40_200_STN \
+  3 ManagedElement_R07ABSSFunctionMixedApg40_100_STN \
+  8 ManagedElement_R07BBSSFunctionMixedApg40_512_STN_Some_07B \
+  2 ManagedElement_R07BBSSFunctionMixedApg40_100_STN \
+  8 ManagedElement_R08ABSSFunctionMixedApg40_512_STN \
+  2 ManagedElement_R08ABSSFunctionMixedApg40_100_STN
+
+
+// General 
+
+#ManagedElement_Firewall
+managedElementType: {Firewall}
+swVersion: Netscreen-1000
+#0: 
+
+#ManagedElement_TimeServer
+managedElementType: {TimeServer}
+swVersion: 06B
+#0: 
+
+#ManagedElement_MLPPP
+managedElementType: {MLPPPRouter}
+swVersion: SE-800
+#0:
+
+
+// MSC R12.1
+
+#ManagedElement_R121MSCApg40
+swVersion: R12.1
+primaryiotype: APG40
+#1: 1 R12MSCCellFunction
+
+
+#ManagedElement_R121MSC
+swVersion: R12.1
+#1: 1 R12MSCCellFunction
+
+// MSC R12.2
+
+#ManagedElement_R122MSCApg40
+swVersion: R12.2
+primaryiotype: APG40
+#1: 1 R12MSCCellFunction
+
+
+#ManagedElement_R122MSC
+swVersion: R12.2
+#1: 1 R12MSCCellFunction
+
+
+// MSC R12
+
+#R12MSCCellFunction
+#0:
+
+
+// MSC R13
+
+#ManagedElement_R13MSCApg40
+primaryiotype: APG40
+#1: 1 R13MSCCellFunction
+
+
+#ManagedElement_R13MSC
+#1: 1 R13MSCCellFunction
+
+#R13MSCCellFunction
+#0:
+
+
+
+// BSC R06B
+
+#ManagedElement_R06BBSSFunctionMixed_100_STN
+lanswitch: ON
+abisoverip: ON
+firewall: ON
+#1: 1 R06BBSSFunction_Mixed_100_STN
+
+#ManagedElement_R06BBSSFunctionMixedApg40_100_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R06BBSSFunction_Mixed_100_STN
+
+#ManagedElement_R06BBSSFunctionMixedApg40_200_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R06BBSSFunction_Mixed_200_STN
+
+
+#R06BBSSFunction_Mixed_100_STN
+gsystype: mixed
+#4: 100 R06BPSTU_08APICO 30 R06BInternalCell_800 40 R06BInternalCell_900 30 R06BInternalCell_1800
+
+#R06BBSSFunction_Mixed_200_STN
+gsystype: mixed
+#4: 200 R06BPSTU_08APICO 60 R06BInternalCell_800 80 R06BInternalCell_900 60 R06BInternalCell_1800
+
+
+// PSTU 07A
+
+#R06BPSTU_07BPICO
+release: 07B
+iotype: PICO
+#0:
+#R06BPSTU_07BSIU
+release: 07B
+iotype: SIU
+synchronization: NONE
+#0:
+#R06BPSTU_08APICO
+release: 08A
+iotype: PICO
+#0:
+#R06BPSTU_08ASIU
+release: 08A
+iotype: SIU
+synchronization: NONE
+#0:
+
+// Internal cells R06B
+
+#R06BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R06BInternalCell_900
+csystype: gsm900
+#0:
+
+#R06BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R06BInternalCell_800
+csystype: gsm800
+#0:
+
+
+// BSC R07A
+
+#ManagedElement_R07ABSSFunctionMixed_100_STN
+lanswitch: ON
+abisoverip: ON
+firewall: ON
+#1: 1 R07ABSSFunction_Mixed_100_STN
+
+#ManagedElement_R07ABSSFunctionMixedApg40_100_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07ABSSFunction_Mixed_100_STN
+
+#ManagedElement_R07ABSSFunctionMixedApg40_200_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07ABSSFunction_Mixed_200_STN
+
+#R07ABSSFunction_Mixed_100_STN
+gsystype: mixed
+#4: 100 R07APSTU_08APICO 30 R07AInternalCell_800 40 R07AInternalCell_900 30 R07AInternalCell_1800
+
+#R07ABSSFunction_Mixed_200_STN
+gsystype: mixed
+#4: 200 R07APSTU_08APICO 60 R07AInternalCell_800 80 R07AInternalCell_900 60 R07AInternalCell_1800
+
+
+
+// PSTU 07A
+
+#R07APSTU_07BPICO
+release: 07B
+iotype: PICO
+#0:
+#R07APSTU_07BSIU
+release: 07B
+iotype: SIU
+synchronization: NONE
+#0:
+#R07APSTU_08APICO
+release: 08A
+iotype: PICO
+#0:
+#R07APSTU_08ASIU
+release: 08A
+iotype: SIU
+synchronization: NONE
+#0:
+
+// Internal cells R07A
+
+#R07AInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R07AInternalCell_900
+csystype: gsm900
+#0:
+
+#R07AInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R07AInternalCell_800
+csystype: gsm800
+#0:
+
+
+
+// BSC R07B
+
+
+#ManagedElement_R07BBSSFunctionMixedApg40_100_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07BBSSFunction_Mixed_100_STN
+
+#ManagedElement_R07BBSSFunctionMixedApg40_512_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07BBSSFunction_Mixed_512_STN
+
+#ManagedElement_R07BBSSFunctionMixedApg40_512_STN_Some_07B
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07BBSSFunction_Mixed_512_STN_Some_07B
+
+#ManagedElement_R07BBSSFunctionMixedApg40_100_STN_Some_07B
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+#1: 1 R07BBSSFunction_Mixed_100_STN_Some_07B
+
+
+#R07BBSSFunction_Mixed_100_STN_Some_07B
+gsystype: mixed
+#5: 50 R07BPSTU_07BPICO 50 R07BPSTU_08APICO \
+    30 R07BInternalCell_800 40 R07BInternalCell_900 30 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_100_STN
+gsystype: mixed
+#4: 100 R07BPSTU_08APICO 30 R07BInternalCell_800 40 R07BInternalCell_900 30 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_512_STN
+gsystype: mixed
+#4: 512 R07BPSTU_08APICO 156 R07BInternalCell_800 200 R07BInternalCell_900 156 R07BInternalCell_1800
+
+#R07BBSSFunction_Mixed_512_STN_Some_07B
+gsystype: mixed
+#5: 30 R07BPSTU_07BPICO 482 R07BPSTU_08APICO 156 R07BInternalCell_800 200 R07BInternalCell_900 156 R07BInternalCell_1800
+
+// PSTU 07B
+
+#R07BPSTU_07BPICO
+release: 07B
+iotype: PICO
+#0:
+#R07BPSTU_07BSIU
+release: 07B
+iotype: SIU
+synchronization: NONE
+#0:
+#R07BPSTU_08APICO
+release: 08A
+iotype: PICO
+#0:
+#R07BPSTU_08ASIU
+release: 08A
+iotype: SIU
+synchronization: NONE
+#0:
+
+
+// Internal cells R07B
+
+#R07BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R07BInternalCell_900
+csystype: gsm900
+#0:
+
+#R07BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R07BInternalCell_800
+csystype: gsm800
+#0:
+
+
+// BSC R08A
+
+
+#ManagedElement_R08ABSSFunctionMixedApg40_100_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+mlppp: ON
+#1: 1 R08ABSSFunction_Mixed_100_STN
+
+#ManagedElement_R08ABSSFunctionMixedApg40_512_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+mlppp: ON
+#1: 1 R08ABSSFunction_Mixed_512_STN
+
+
+#R08ABSSFunction_Mixed_100_STN
+gsystype: mixed
+#4: 100 R08APSTU_08APICO 30 R08AInternalCell_800 40 R08AInternalCell_900 30 R08AInternalCell_1800
+
+#R08ABSSFunction_Mixed_512_STN
+gsystype: mixed
+#4: 512 R08APSTU_08APICO 156 R08AInternalCell_800 200 R08AInternalCell_900 156 R08AInternalCell_1800
+
+// PSTU 08A
+
+#R08APSTU_07BPICO
+release: 07B
+iotype: PICO
+#0:
+#R08APSTU_07BSIU
+release: 07B
+iotype: SIU
+transport: MLPPP
+synchronization: NONE
+#0:
+#R08APSTU_08APICO
+release: 08A
+iotype: PICO
+#0:
+#R08APSTU_08ASIU
+release: 08A
+iotype: SIU
+transport: MLPPP
+synchronization: NONE
+#0:
+
+
+// Internal cells R08A
+
+#R08AInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R08AInternalCell_900
+csystype: gsm900
+#0:
+
+#R08AInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R08AInternalCell_800
+csystype: gsm800
+#0:
+
+
+***************
+
+// BSC R08B
+
+
+#ManagedElement_R08BBSSFunctionMixedApg40_100_STN
+lanswitch: ON
+primaryiotype: APG40
+abisoverip: ON
+firewall: ON
+mlppp: ON
+#1: 1 R08BBSSFunction_Mixed_100_STN
+
+#R08BBSSFunction_Mixed_100_STN
+gsystype: mixed
+#4: 100 R08BPSTU_08APICO 30 R08BInternalCell_800 40 R08BInternalCell_900 30 R08BInternalCell_1800
+
+// PSTU 08B
+
+#R08BPSTU_07BPICO
+release: 07B
+iotype: PICO
+#0:
+#R08BPSTU_07BSIU
+release: 07B
+iotype: SIU
+transport: MLPPP
+synchronization: NONE
+#0:
+#R08BPSTU_08APICO
+release: 08A
+iotype: PICO
+#0:
+#R08BPSTU_08ASIU
+release: 08A
+iotype: SIU
+transport: MLPPP
+synchronization: NONE
+#0:
+
+
+// Internal cells R08B
+
+#R08BInternalCell_1900
+csystype: gsm1900
+#0:
+
+#R08BInternalCell_900
+csystype: gsm900
+#0:
+
+#R08BInternalCell_1800
+csystype: gsm1800
+#0:
+
+#R08BInternalCell_800
+csystype: gsm800
+#0:
+

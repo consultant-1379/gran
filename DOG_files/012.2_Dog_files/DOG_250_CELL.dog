@@ -1,0 +1,45 @@
+#SubNetwork_DOG_250_CELL
+#2: \
+1 ManagedElement_MSC_R141 \
+2 ManagedElement_BSC_G12A_125_CELL_5_STN \
+
+#ManagedElement_MSC_R141
+swVersion: R141
+primaryiotype: APG40
+#1: 1 R14MSCCellFunction
+
+#ManagedElement_BSC_G12A_125_CELL_5_STN
+primaryiotype: APG40
+superchannel: ON
+lanswitch: R1
+#1: 1 G12ABSSFunction_BSC_G12A_125_CELL_5_STN
+
+#G12ABSSFunction_BSC_G12A_125_CELL_5_STN
+#2: 125 G12AInternalCell_900 5 G12BPSTU_SIU02
+
+#G12AInternalCell_900
+csystype: gsm900
+#0:
+
+#G12BPSTU_SIU02
+release: T12B
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#G12APSTU_SIU02
+release: T13A
+iotype: SIU02
+transport: MLPPP
+no_of_rbs: 2
+site: MEDIUM
+#0:
+
+#UtranCellForeign
+#0:
+
+#R14MSCCellFunction
+#0:
+
